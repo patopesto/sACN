@@ -29,9 +29,14 @@ export enum RootVector {
 }
 export enum FrameVector {
   DATA = 2,
+  EXTENDED_SYNCHRONIZATION = 1,
+  EXTENDED_DISCOVERY = 2,
 }
 export enum DmpVector {
   DATA = 2,
+}
+export enum DiscoveryVector {
+  LIST = 1,
 }
 
 // export enum ExtendedFrameVector { SYNC = 1, DISCOVERY = 2 }
