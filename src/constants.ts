@@ -39,4 +39,4 @@ export enum DiscoveryVector {
   LIST = 1,
 }
 
-// export enum ExtendedFrameVector { SYNC = 1, DISCOVERY = 2 }
+export const DISCOVERY_INTERVAL = 10; // in seconds

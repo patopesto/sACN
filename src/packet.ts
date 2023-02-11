@@ -279,7 +279,11 @@ export class DiscoveryPacket {
     if (this.privateList instanceof Buffer) {
       const buf = this.privateList;
       const data: Payload = {};
-      for (let i = 0, index = 1; i < buf.length; i += 2, index += 1) {
+      for (
+        let i = 0, index = this.page * 512 + 1;
+        i < buf.length;
+        i += 2, index += 1
+      ) {
         data[index] = buf.readUInt16BE(i);
       }
       return data;
