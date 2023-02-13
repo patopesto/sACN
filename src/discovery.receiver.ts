@@ -17,7 +17,9 @@ export interface Source {
   sourceName: string;
   sourceAddress?: string;
   lastHeard: Date;
-  universes: Payload;
+  pages: {
+    [page: number]: Payload;
+  };
 }
 
 export type Sources = { [num: number]: Source };
@@ -68,10 +70,12 @@ export class DiscoveryReceiver extends EventEmitter {
           const source = this.privateSources[key]!;
           source.lastHeard = date;
           if (packet.page === 0) {
-            // reset the universe list on first page
-            source.universes = packet.list;
+            // reset the source's page list
+            source.pages = {
+              [packet.page]: packet.list,
+            };
           } else {
-            source.universes = { ...packet.list, ...source.universes };
+            source.pages[packet.page] = packet.list;
           }
         } else {
           const source: Source = {
@@ -79,7 +83,9 @@ export class DiscoveryReceiver extends EventEmitter {
             sourceName: packet.sourceName,
             sourceAddress: packet.sourceAddress,
             lastHeard: date,
-            universes: packet.list,
+            pages: {
+              [packet.page]: packet.list,
+            },
           };
           this.privateSources[key] = source;
           this.emit('sourceDetected', source);
