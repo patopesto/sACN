@@ -319,8 +319,8 @@ export class DiscoveryPacket {
     );
 
     for (let i = 0; i < listSize; i += 1) {
-      n[120 + i * 2] = this.list[i + 1]! << 8;
-      n[120 + i * 2 + 1] = this.list[i + 1]!;
+      n[120 + i * 2] = this.list[i + 1]! >> 8;       // MSB
+      n[120 + i * 2 + 1] = this.list[i + 1]! & 0xFF; // LSB
     }
 
     return Buffer.from(n);
